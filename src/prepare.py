@@ -6,7 +6,7 @@ import logging   # Configura y controla mensajes de registro
 
 
 # Configurar el sistema de registro: Configura cómo se mostrarán los mensajes de registro
-logging.basicConfig(
+logger = logging.basicConfig(
     format='%(asctime)s %(levelname)s:%(name)s:%(message)s',
     level=logging.INFO,
     datefmt='%H:%M:%S',
