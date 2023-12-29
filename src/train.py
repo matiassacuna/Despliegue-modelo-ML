@@ -1,4 +1,4 @@
-from utils import update_model
+from utils import update_model, save_simple_metrics_report, get_model_performance_test_set
 from sklearn.model_selection import train_test_split, cross_validate, GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
@@ -59,4 +59,17 @@ logger.info('Updating model...')
 # Por lo que voy a crear esta función en Utils...
 
 update_model(grid_search.best_estimator_)
+
+logger.info('Generating model report..')
+validation_score = grid_search.best_estimator_.score(X_test, y_test)
+# save_simple_metrics_report va a existir dentro de utils
+save_simple_metrics_report(train_score, test_score, validation_score, grid_search.best_estimator_)
+
+# Haré una gráfica en donde se guarden en el eje 'y' los valores reales de las predicciones y abajo los
+# valores predichos por el modelo
+y_test_pred = grid_search.best_estimator_.predict(X_test)
+# en utils crearé esta función
+get_model_performance_test_set(y_test, y_test_pred)
+
+logger.info('Training finished')
 
